@@ -15,3 +15,4 @@ Dynamically add new menu items
 Designed for ease-of-use on both desktop and print-ready paper formats.
 
 
+![Screenshot 2025-04-07 112044](https://github.com/user-attachments/assets/873fc90f-4b97-4358-9a87-fd6c760faa35)
