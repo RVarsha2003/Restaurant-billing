@@ -10,6 +10,14 @@
   <div id="app">
     <h1>🍽️ {{ restaurantName }}</h1>
 
+<!-- Add Menu Item (Owner Section) -->
+<div class="owner-add-form">
+  <h3>➕ Add New Menu Item</h3>
+  <input type="text" v-model="newItemName" placeholder="Item Name" />
+  <input type="number" v-model.number="newItemPrice" placeholder="Price" />
+  <button @click="addMenuItem">Add Item</button>
+</div>
+
     <button @click="showMenu = !showMenu">
       {{ showMenu ? 'Hide' : 'Show' }} Menu
     </button>
