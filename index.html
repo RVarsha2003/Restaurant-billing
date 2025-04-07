@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Restaurant Bill Generator</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <h1>🍽️ {{ restaurantName }}</h1>
+
+    <button @click="showMenu = !showMenu">
+      {{ showMenu ? 'Hide' : 'Show' }} Menu
+    </button>
+
+    <div v-if="showMenu" class="menu-grid">
+      <div class="menu-column" v-for="col in 2" :key="col">
+        <div
+          v-for="(item, index) in getColumnItems(col)"
+          :key="index"
+          class="menu-item"
+        >
+          <span>{{ item.name }} - ₹{{ item.price }}</span>
+          <button @click="openModal(item)">Add</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div v-if="showModal" class="modal-overlay">
+      <div class="modal-box">
+        <h3>Add to Bill</h3>
+        <p><strong>{{ selectedItem.name }}</strong> - ₹{{ selectedItem.price }}</p>
+        <label>Qty: </label>
+        <input v-model.number="selectedQty" type="number" min="1" />
+        <br />
+        <button @click="addItem">✅ Add to Bill</button>
+        <button class="cancel" @click="closeModal">❌ Cancel</button>
+      </div>
+    </div>
+
+    <!-- Owner UI -->
+    <table v-if="items.length > 0" class="owner-view">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+          <th>Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item, index) in items" :key="index">
+          <td>{{ item.name }}</td>
+          <td>{{ item.qty }}</td>
+          <td>{{ item.price }}</td>
+          <td>{{ item.qty * item.price }}</td>
+          <td><button @click="removeItem(index)">❌</button></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="summary owner-view" v-if="items.length > 0">
+      <p>Subtotal: ₹{{ subtotal.toFixed(2) }}</p>
+      <p>Discount: ₹<input v-model.number="discount" type="number" /></p>
+      <p>GST (5%): ₹{{ gst.toFixed(2) }}</p>
+      <hr />
+      <h2>Total: ₹{{ total.toFixed(2) }}</h2>
+      <button @click="printBill">🖨️ Print Bill</button>
+    </div>
+
+    <!-- Printable bill -->
+    <div class="print-view" id="printable-bill" v-if="items.length > 0">
+      <h2>{{ restaurantName }}</h2>
+      <p><strong>Address:</strong> Opp. Bhoir Pada Bus Stop, Bhiwandi, Thane</p>
+      <p><strong>Date:</strong> {{ currentDate }} | <strong>Bill No:</strong> {{ billNumber }}</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Qty</th>
+            <th>Rate</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(item, index) in items" :key="index">
+            <td>{{ item.name }}</td>
+            <td>{{ item.qty }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ (item.qty * item.price).toFixed(2) }}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p><strong>Sub Total:</strong> ₹{{ subtotal.toFixed(2) }}</p>
+      <p><strong>SGST 9%:</strong> ₹{{ (subtotal * 0.09).toFixed(2) }}</p>
+      <p><strong>CGST 9%:</strong> ₹{{ (subtotal * 0.09).toFixed(2) }}</p>
+      <h3>Grand Total: ₹{{ (subtotal * 1.18).toFixed(2) }}</h3>
+
+      <hr style="border: none; border-top: 2px dashed black; margin: 10px 0;" />
+      <p style="text-align:center;">Thank You. Visit Again! 😊</p>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
