@@ -124,6 +124,19 @@ body {
     #printable-bill, #printable-bill * {
       visibility: visible;
     }
+    .owner-add-form {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f1f1f1;
+        border: 1px dashed #ccc;
+        border-radius: 8px;
+      }
+      
+      .owner-add-form input {
+        padding: 5px;
+        margin-right: 10px;
+      }
+      
   
     #printable-bill {
       position: absolute;
