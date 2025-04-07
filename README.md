@@ -16,5 +16,11 @@ Designed for ease-of-use on both desktop and print-ready paper formats.
 
 
 
-<img src="https://github.com/user-attachments/assets/d20ad898-42bc-4268-b49a-76630b1b5529" width="300"/>
+
+
+<img src="https://github.com/user-attachments/assets/be6c706a-cd88-466d-9b5d-1820fc436980" width="300"/>
+
+<img src="https://github.com/user-attachments/assets/29d15fb4-d771-4aa3-9547-09b0ff1120bf" width="300"/>
+
+<img src="https://github.com/user-attachments/assets/a5a175a2-7a8d-46b4-8ca0-67e5846419cc" width="300"/>
 
