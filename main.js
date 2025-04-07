@@ -12,6 +12,8 @@ createApp({
       selectedItem: {},
       selectedQty: 1,
       items: [],
+      newItemName: "",
+      newItemPrice: "",
       menuItems: [
         { name: "MISAL PAV", price: 85 },
         { name: "BATATA WADA", price: 70 },
@@ -39,7 +41,6 @@ createApp({
   },
   methods: {
     getInitialBillNumber() {
-      // Try to fetch from localStorage, fallback to 1
       return parseInt(localStorage.getItem('billNumber')) || 1;
     },
     saveBillNumber() {
@@ -75,15 +76,24 @@ createApp({
     },
     printBill() {
       window.print();
-
-      // After print: increment bill number
       this.billNumber += 1;
       this.saveBillNumber();
-
-      // Reset for next bill
       this.items = [];
       this.discount = 0;
       this.currentDate = new Date().toLocaleString();
+    },
+    addMenuItem() {
+      const name = this.newItemName.trim();
+      const price = parseFloat(this.newItemPrice);
+
+      if (!name || isNaN(price) || price <= 0) {
+        alert("Please enter a valid item name and price.");
+        return;
+      }
+
+      this.menuItems.push({ name, price });
+      this.newItemName = "";
+      this.newItemPrice = "";
     }
   }
 }).mount('#app');
